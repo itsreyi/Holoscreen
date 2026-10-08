@@ -1,0 +1,34 @@
+# Gradle / Loom
+.gradle/
+build/
+out/
+bin/
+remappedSrc/
+
+# Dev run directories (worlds, logs, MCEF's Chromium download)
+run/
+run-server/
+
+# IDEs
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.classpath
+.project
+.settings/
+.factorypath
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs and crash dumps
+*.log
+hs_err_pid*
+
+# Local notes, not part of the mod
+prompt.txt
+CLAUDE.md

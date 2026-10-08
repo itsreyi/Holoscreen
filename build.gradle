@@ -1,0 +1,79 @@
+plugins {
+	id 'net.fabricmc.fabric-loom-remap' version "${loom_version}"
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+	archivesName = project.archives_base_name
+}
+
+repositories {
+	mavenCentral()
+	maven {
+		url = uri('https://mcef-download.cinemamod.com/repositories/releases')
+	}
+}
+
+loom {
+	splitEnvironmentSourceSets()
+
+	mods {
+		"holoscreen" {
+			sourceSet sourceSets.main
+			sourceSet sourceSets.client
+		}
+	}
+}
+
+dependencies {
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	mappings loom.officialMojangMappings()
+	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+	// MCEF (LGPL-2.1) is bundled unmodified as a nested jar, so players install a single file. Its common
+	// entrypoint is empty and its mixins are client-only, so it is harmless on dedicated servers.
+	modImplementation "com.cinemamod:mcef-fabric:${project.mcef_version}"
+	include "com.cinemamod:mcef-fabric:${project.mcef_version}"
+
+	testImplementation platform("org.junit:junit-bom:5.11.4")
+	testImplementation "org.junit.jupiter:junit-jupiter"
+	testRuntimeOnly "org.junit.platform:junit-platform-launcher"
+}
+
+// Unit tests cover the pure helpers in the client source set (PanelMath, UrlInput).
+sourceSets {
+	test {
+		compileClasspath += sourceSets.client.output + sourceSets.client.compileClasspath
+		runtimeClasspath += sourceSets.client.output + sourceSets.client.runtimeClasspath
+	}
+}
+
+test {
+	useJUnitPlatform()
+}
+
+processResources {
+	inputs.property "version", project.version
+
+	filesMatching("fabric.mod.json") {
+		expand "version": project.version
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	options.release = 21
+}
+
+jar {
+	from("LICENSE") {
+		rename { "${it}_${project.archives_base_name}" }
+	}
+}
+
+java {
+	withSourcesJar()
+	sourceCompatibility = JavaVersion.VERSION_21
+	targetCompatibility = JavaVersion.VERSION_21
+}

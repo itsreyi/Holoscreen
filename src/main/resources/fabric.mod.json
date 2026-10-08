@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "holoscreen",
+  "version": "${version}",
+  "name": "Holoscreen",
+  "description": "Floating video screens in your world: place a YouTube, Twitch, Kick or web panel anywhere, resize, rotate and orbit it, let it follow you, share it with other players, with spatial audio.",
+  "authors": [
+    "itsreyi"
+  ],
+  "license": "MIT",
+  "icon": "assets/holoscreen/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "it.holoscreen.HoloscreenMod"
+    ],
+    "client": [
+      "it.holoscreen.client.HoloscreenClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.16.5",
+    "minecraft": "~1.21.1",
+    "java": ">=21",
+    "fabric-api": "*",
+    "mcef": "*"
+  }
+}
