@@ -1,6 +1,6 @@
 # Holoscreen
 
-A Fabric mod for Minecraft 1.21.1 that puts a browser screen in your world. It can open YouTube, Twitch, Kick or any website, and you can share it with other players on the server.
+A Fabric mod for Minecraft that puts a browser screen in your world. It can open YouTube, Twitch, Kick or any website, and you can share it with other players on the server.
 
 ## Build
 
